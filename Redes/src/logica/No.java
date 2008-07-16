@@ -45,6 +45,10 @@ public class No {
 	public void setPorta(int porta) {
 		this.porta = porta;
 	}
+	
+	public void addVizinho(int idVizinho){
+		this.vizinhos.add(idVizinho);
+	}
 
 
 }

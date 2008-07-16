@@ -75,5 +75,38 @@ public class Controlador {
 		
 	}
 
+	public void configuraVizinhos() {
+		String file = Util.CONFIG_ENLACE;
+		FileReader fr;
+		try {
+			fr = new FileReader(file);
+			BufferedReader bfr = new BufferedReader(fr);
+			
+			String linha = bfr.readLine();
+			String [] linhaArray = linha.split(" ");
+			while(linha != null){
+				if (linhaArray[0].equals(String.valueOf(noAtual.getId()))){
+					noAtual.addVizinho(Integer.valueOf(linhaArray[1]));
+				}else if (linhaArray[1].equals(String.valueOf(noAtual.getId()))){
+					noAtual.addVizinho(Integer.valueOf(linhaArray[0]));
+				}
+				
+				linha = bfr.readLine();
+				if (linha!= null)
+					linhaArray = linha.split(" ");
+			}
+		}catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+	}
+
+	public void configuraEnlaces() {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

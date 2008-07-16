@@ -17,6 +17,8 @@ public class RoteadorThread extends Thread {
 		controlador.setNoAtual(new No(id));
 		
 		controlador.configuraRoteador();
+		controlador.configuraVizinhos();
+		controlador.configuraEnlaces();
 	}
 
 }

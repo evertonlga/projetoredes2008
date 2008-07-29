@@ -19,12 +19,12 @@ public class ThreadAvisaVizinho extends Thread {
 	}
 	
 	public void run(){
-		int IPDestino = procuraIPVizinho();
+		String IPDestino = procuraIPVizinho();
 		int portaDestino = procuraPortaVizinho();
 		envia(idVizinho, portaDestino);
 	}
 
-	private int procuraIPVizinho() {
+	private String procuraIPVizinho() {
 		String file = Util.CONFIG_ROTEADOR;
 		FileReader fr;
 		try {
@@ -33,17 +33,17 @@ public class ThreadAvisaVizinho extends Thread {
 			
 			String linha = bfr.readLine();
 			while(linha != null){
-				if (linha.startsWith(String.valueOf(no.getId())))
+				if (linha.startsWith(String.valueOf(idVizinho)))
 					break;
 				linha = bfr.readLine();
 			}
 			String[] info = linha.split(" ");
 
-			return Integer.parseInt(info[0]); 
+			return info[2]; 
 		}catch (Exception e) {
 			
 		}
-		return -1;
+		return null;
 	}
 	
 	private int procuraPortaVizinho() {
@@ -55,13 +55,13 @@ public class ThreadAvisaVizinho extends Thread {
 			
 			String linha = bfr.readLine();
 			while(linha != null){
-				if (linha.startsWith(String.valueOf(no.getId())))
+				if (linha.startsWith(String.valueOf(idVizinho)))
 					break;
 				linha = bfr.readLine();
 			}
 			String[] info = linha.split(" ");
 
-			return Integer.parseInt(info[2]); 
+			return Integer.parseInt(info[1]); 
 		}catch (Exception e) {
 			
 		}

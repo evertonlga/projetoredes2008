@@ -7,7 +7,7 @@ public class BellmanFord {
 	private No no;
 	
 	public BellmanFord(No noAtual) {
-		this.no = no;
+		this.no = noAtual;
 	}
 
 	public void avisaVizinhos() {

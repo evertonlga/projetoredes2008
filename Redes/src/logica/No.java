@@ -4,6 +4,7 @@ import java.net.DatagramSocket;
 import java.net.SocketException;
 import java.util.ArrayList;
 
+
 public class No {
 
 	private int id;
@@ -87,7 +88,24 @@ public class No {
 
 			}
 		}
+		System.out.println(mostraTabela());
 
+	}
+
+	public String mostraTabela() {
+		String tabString = "\nConfiguração atual da tabela do no "+id+"\n";
+		for (int i = 0; i < tabela.length; i++){
+			tabString+=(vizinhos.get(i)+ "  |  ");
+			for (int j = 0; j < tabela.length; j++) {
+				if (tabela[i][j] != Integer.MAX_VALUE) {	
+					tabString+=tabela[i][j] + "   ";
+				} else {
+					tabString+="INF  ";
+				}
+			}
+			tabString+= "\n";
+		}
+		return tabString;
 	}
 
 	public int[][] getTabela() {

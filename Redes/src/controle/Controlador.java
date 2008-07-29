@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import excecoes.RedesException;
@@ -77,7 +78,7 @@ public class Controlador {
 			String [] dados = linha.split(" ");
 			noAtual.setPorta(Integer.parseInt(dados[1]));
 			noAtual.setIP(dados[2]);
-			System.out.println("Dados do nó "+noAtual.getId()+" foram atualizados.");
+			System.out.println("Dados do nó "+noAtual.getId()+" foram atualizados. --> Porta: "+getNoAtual().getPorta()+"  IP: "+getNoAtual().getIP());
 			
 		} catch (FileNotFoundException e) {
 			throw new RedesException("Arquivo não encontrado!!");
@@ -108,6 +109,7 @@ public class Controlador {
 				if (linha!= null)
 					linhaArray = linha.split(" ");
 			}
+			System.out.println(mostraVizinhos(getNoAtual().getVizinhos()));
 		}catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -115,6 +117,13 @@ public class Controlador {
 		}
 		noAtual.inicializaTabela();
 		
+	}
+
+	private String mostraVizinhos(ArrayList<Integer> vizinhos) {
+		String vizString = "";
+		for (Integer i: vizinhos)
+			vizString+=i+" ";
+		return vizString;
 	}
 
 	public RoteadorThread getRoteadorThread() {
@@ -150,6 +159,7 @@ public class Controlador {
 			
 		}
 		
+		System.out.println(noAtual.mostraTabela());
 		
 	}
 

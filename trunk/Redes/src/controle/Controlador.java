@@ -6,15 +6,28 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.Scanner;
 
+import excecoes.RedesException;
+
 import Util.Util;
 
 import threads.RoteadorThread;
+import logica.BellmanFord;
 import logica.No;
 
 public class Controlador {
 	
 	private No noAtual;
 	private static Controlador controlador;
+	private RoteadorThread roteadorThread;
+	private BellmanFord bellmanFord; 
+	
+	public BellmanFord getBellmanFord() {
+		return bellmanFord;
+	}
+
+	public void setBellmanFord(BellmanFord bellmanFord) {
+		this.bellmanFord = bellmanFord;
+	}
 	
 	public static Controlador getInstance(){
 
@@ -28,7 +41,8 @@ public class Controlador {
 
 	public void criaNo(int id) {
 		RoteadorThread roteador = new RoteadorThread(this, id);
-		roteador.run();		
+		setRoteadorThread(roteador);
+		roteadorThread.run();		
 	}
 
 	public No getNoAtual() {
@@ -47,7 +61,7 @@ public class Controlador {
 		Controlador.controlador = controlador;
 	}
 
-	public void configuraRoteador()  {
+	public void configuraRoteador() throws RedesException  {
 		String file = Util.CONFIG_ROTEADOR;
 		FileReader fr;
 		try {
@@ -63,13 +77,12 @@ public class Controlador {
 			String [] dados = linha.split(" ");
 			noAtual.setPorta(Integer.parseInt(dados[1]));
 			noAtual.setIP(dados[2]);
+			System.out.println("Dados do nó "+noAtual.getId()+" foram atualizados.");
 			
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RedesException("Arquivo não encontrado!!");
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RedesException("Erro na leitura do arquivo de configuração!!");
 		}
 		
 		
@@ -100,11 +113,43 @@ public class Controlador {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		noAtual.inicializaTabela();
 		
 	}
 
+	public RoteadorThread getRoteadorThread() {
+		return roteadorThread;
+	}
+
+	public void setRoteadorThread(RoteadorThread roteadorThread) {
+		this.roteadorThread = roteadorThread;
+	}
+
 	public void configuraEnlaces() {
-		// TODO Auto-generated method stub
+		System.out.println("Configurando enlaces");
+		String file = Util.CONFIG_ENLACE;
+		FileReader fr;
+		try {
+			fr = new FileReader(file);
+			BufferedReader bfr = new BufferedReader(fr);
+			
+			String linha = bfr.readLine();
+			String [] linhaArray = linha.split(" ");
+			while(linha != null){
+				if (linhaArray[0].equals(String.valueOf(noAtual.getId()))){
+					noAtual.modificaTabela(noAtual.getId(), Integer.valueOf(linhaArray[1]), Integer.valueOf(linhaArray[2]));
+				}else if (linhaArray[1].equals(String.valueOf(noAtual.getId()))){
+					noAtual.modificaTabela(noAtual.getId(), Integer.valueOf(linhaArray[0]), Integer.valueOf(linhaArray[2]));
+				}
+				
+				linha = bfr.readLine();
+				if (linha!= null)
+					linhaArray = linha.split(" ");
+			}
+		}catch (Exception e) {
+			
+		}
+		
 		
 	}
 

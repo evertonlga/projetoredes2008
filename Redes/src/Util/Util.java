@@ -32,20 +32,27 @@ public class Util {
 
 	public static Integer[] decodificaDadosPacote(String mensagem) {
 		String[] nums = mensagem.split(" ");
-		Integer[] values = new Integer[nums.length-1];
+		Integer[] values = new Integer[limit(nums)];
 
 		int i = 0;
-		while (i < nums.length-1){
+		while (i<values.length){
 			if(	nums[i] == null){
 				values[i] = 0;
 			}
 			else{
 				values[i] = Integer.parseInt(nums[i]);
 			}
-			i++;	
+			i++;
 		}
 		
 		return values;
+	}
+
+	private static int limit(String[] nums) {
+		for (int i =0; i< nums.length; i++)
+			if (nums[i].startsWith("."))
+				return i;
+		return 0;
 	}
 
 }

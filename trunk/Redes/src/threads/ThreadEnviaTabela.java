@@ -12,12 +12,12 @@ import Util.Util;
 import logica.No;
 import logica.RotCelula;
 
-public class ThreadAvisaVizinho extends Thread {
+public class ThreadEnviaTabela extends Thread {
 
 	private No no;
 	private int idVizinho;
 	
-	public ThreadAvisaVizinho(No no, int vizinho) {
+	public ThreadEnviaTabela(No no, int vizinho) {
 		super();
 		this.no = no;
 		this.idVizinho = vizinho;

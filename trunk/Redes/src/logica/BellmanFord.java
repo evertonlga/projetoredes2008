@@ -1,6 +1,6 @@
 package logica;
 
-import threads.ThreadAvisaVizinho;
+import threads.ThreadEnviaTabela;
 
 
 public class BellmanFord {
@@ -12,10 +12,10 @@ public class BellmanFord {
 	}
 
 	public void avisaVizinhos() {
-		ThreadAvisaVizinho avisa;
+		ThreadEnviaTabela avisa;
 		for (int vizinho: no.getVizinhos())
 			if (vizinho != no.getId()){
-				avisa = new ThreadAvisaVizinho(no, vizinho);
+				avisa = new ThreadEnviaTabela(no, vizinho);
 				avisa.run();
 			}
 	}

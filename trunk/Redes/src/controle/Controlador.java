@@ -163,5 +163,30 @@ public class Controlador {
 		
 	}
 
+	public void reset(Integer noDesligado) {
+		String file = Util.CONFIG_ENLACE;
+		FileReader fr;
+		try{
+			fr = new FileReader(file);
+			BufferedReader bfr = new BufferedReader(fr);
+			String line = bfr.readLine();
+			String[] enlace = line.split(" ");
+			while (line != null){
+				//TODO metodo reset
+				noAtual.reset(enlace, noDesligado);
+				line = bfr.readLine();
+				enlace = line.split(" ");
+			}
+				
+			
+		}catch (FileNotFoundException e){
+			System.out.println(e.getMessage());
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+	}
+
 
 }

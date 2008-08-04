@@ -159,7 +159,7 @@ public class Controlador {
 			
 		}
 		
-		System.out.println(noAtual.mostraTabela());
+		noAtual.mostraTabela();
 		
 	}
 

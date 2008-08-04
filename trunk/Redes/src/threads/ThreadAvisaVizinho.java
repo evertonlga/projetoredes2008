@@ -77,7 +77,7 @@ public class ThreadAvisaVizinho extends Thread {
 		try {
 			DatagramSocket datagrama = no.getSocketServidor();
 			String pack = Util.codificaDadosDoPacote(getNo());
-			
+			System.out.println(" roteador "+no.getId()+" enviou o pacote "+pack+" para a porta "+ portaDestino );
 			byte[] tabelaByte = new byte[1024];
 			tabelaByte = pack.getBytes();
 

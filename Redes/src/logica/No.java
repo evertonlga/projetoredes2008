@@ -111,11 +111,11 @@ public class No {
 					
 			}
 		}
-		System.out.println(mostraTabela());
+		mostraTabela();
 
 	}
 
-	public String mostraTabela() {
+	public void mostraTabela() {
 		String tabString = "\nConfiguração atual da tabela do no "+id+"\n";
 		for (int i = 0; i < tabela.length; i++){
 			tabString+=(vizinhos.get(i)+ "  |  ");
@@ -128,7 +128,7 @@ public class No {
 			}
 			tabString+= "\n";
 		}
-		return tabString;
+		System.out.println(tabString);
 	}
 
 	public RotCelula[][] getTabela() {

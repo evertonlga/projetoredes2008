@@ -75,6 +75,7 @@ public class RecThread extends Thread {
 
 		//transforma em inteiros a string recebida
 		Integer[] info = Util.decodificaDadosPacote(mensagem);
+		System.out.println("O pacote "+show(info)+" foi enviado por "+getPacote().getSocketAddress());
 		int linha = vizinhos.indexOf(info[0]);
 		int posAtual = vizinhos.indexOf(getNo().getId());
 
@@ -134,6 +135,14 @@ public class RecThread extends Thread {
 		}
 		// Atualizando uma linha recebida pelo vizinho
 					
+	}
+
+	private String show(Integer[] info) {
+		String r = "[";
+		for (Integer i: info){
+			r+= i+" ";
+		}
+		return r.trim()+"]";
 	}
 
 	

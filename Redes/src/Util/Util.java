@@ -27,15 +27,15 @@ public class Util {
 			}
 			
 		}
-		return dados.trim();
+		return dados.trim()+" .";
 	}
 
 	public static Integer[] decodificaDadosPacote(String mensagem) {
 		String[] nums = mensagem.split(" ");
-		Integer[] values = new Integer[nums.length];
+		Integer[] values = new Integer[nums.length-1];
 
 		int i = 0;
-		while (i < nums.length){
+		while (i < nums.length-1){
 			if(	nums[i] == null){
 				values[i] = 0;
 			}

@@ -2,10 +2,15 @@ package threads;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
+import java.io.IOException;
+import java.net.DatagramPacket;
 import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.util.ArrayList;
 
 import Util.Util;
 import logica.No;
+import logica.RotCelula;
 
 public class ThreadAvisaVizinho extends Thread {
 
@@ -19,12 +24,12 @@ public class ThreadAvisaVizinho extends Thread {
 	}
 	
 	public void run(){
-		String IPDestino = procuraIPVizinho();
+		InetAddress IPDestino = procuraIPVizinho();
 		int portaDestino = procuraPortaVizinho();
-		envia(idVizinho, portaDestino);
+		envia(IPDestino, portaDestino);
 	}
 
-	private String procuraIPVizinho() {
+	private InetAddress procuraIPVizinho() {
 		String file = Util.CONFIG_ROTEADOR;
 		FileReader fr;
 		try {
@@ -39,7 +44,7 @@ public class ThreadAvisaVizinho extends Thread {
 			}
 			String[] info = linha.split(" ");
 
-			return info[2]; 
+			return No.configureIP(info[2]); 
 		}catch (Exception e) {
 			
 		}
@@ -68,8 +73,29 @@ public class ThreadAvisaVizinho extends Thread {
 		return -1;
 	}
 	
-	public void envia(int IPVizinho, int portaDestino){
-		DatagramSocket datagrama = no.getSocketServidor();
+	public void envia(InetAddress IPDestino, int portaDestino){
+		try {
+			DatagramSocket datagrama = no.getSocketServidor();
+			String pack = Util.codificaDadosDoPacote(getNo());
+			
+			byte[] tabelaByte = new byte[1024];
+			tabelaByte = pack.getBytes();
+
+			DatagramPacket dp = new DatagramPacket(tabelaByte,tabelaByte.length,IPDestino, portaDestino);
+			datagrama.send(dp);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+
+
+	public No getNo() {
+		return no;
+	}
+
+	public void setNo(No no) {
+		this.no = no;
 	}
 	
 }

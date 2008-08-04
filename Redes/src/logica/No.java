@@ -1,17 +1,18 @@
 package logica;
 
 import java.net.DatagramSocket;
+import java.net.InetAddress;
 import java.net.SocketException;
+import java.net.UnknownHostException;
 import java.util.ArrayList;
-
 
 public class No {
 
 	private int id;
 	private ArrayList<Integer> vizinhos;
-	private String IP;
+	private InetAddress IP;
 	private int porta;
-	private int[][] tabela;
+	private RotCelula[][] tabela;
 	private DatagramSocket socketServidor;
 	
 	public No(int id) {
@@ -36,12 +37,32 @@ public class No {
 		this.vizinhos = vizinhos;
 	}
 
-	public String getIP() {
+	public InetAddress getIP() {
 		return IP;
 	}
 
+	public static InetAddress configureIP(String ipS) {
+		String[] ipFrag = ipS.split("\\.");
+		byte[] ipByte = new byte[4];
+		InetAddress ip;		
+		try {
+			for (int i = 0; i < ipFrag.length; i++){
+				Integer num = Integer.parseInt(ipFrag[i]);
+				ipByte[i] = num.byteValue();
+			}
+			
+			ip = InetAddress.getByAddress(ipByte);
+			
+			return ip;
+			
+		} catch (Exception  e){
+			System.out.println(e.getMessage());
+		}
+		return null;
+	}
+
 	public void setIP(String ip) {
-		IP = ip;
+		IP = configureIP(ip);
 	}
 
 	public int getPorta() {
@@ -70,22 +91,24 @@ public class No {
 		int ori = vizinhos.indexOf(origem);
 		int des = vizinhos.indexOf(destino);
 		
-		if (peso < tabela[ori][des]) {
-			tabela[ori][des] = peso;
+		if (peso < tabela[ori][des].getPeso()) {
+			tabela[ori][des].setPeso(peso);
+			tabela[ori][des].setSalto(des);
 		}
 		
 	}
 
 	public void inicializaTabela() {
-		tabela = new int[vizinhos.size()][vizinhos.size()];
+		tabela = new RotCelula[vizinhos.size()][vizinhos.size()];
 		for (int i = 0; i < vizinhos.size(); i++){
 			for (int j = 0; j < vizinhos.size(); j++){
+				this.tabela[i][j] = new RotCelula();
 				if ((vizinhos.indexOf(this.id)==i)&&(vizinhos.indexOf(this.id) == j))
-					tabela[i][j] = 0;
-				else 
-					tabela[i][j] = Integer.MAX_VALUE;
-
-
+					tabela[i][j].setPeso(0);
+				else{
+					this.tabela[i][j].setPeso(Integer.MAX_VALUE);
+				}
+					
 			}
 		}
 		System.out.println(mostraTabela());
@@ -97,7 +120,7 @@ public class No {
 		for (int i = 0; i < tabela.length; i++){
 			tabString+=(vizinhos.get(i)+ "  |  ");
 			for (int j = 0; j < tabela.length; j++) {
-				if (tabela[i][j] != Integer.MAX_VALUE) {	
+				if (tabela[i][j].getPeso() != Integer.MAX_VALUE) {	
 					tabString+=tabela[i][j] + "   ";
 				} else {
 					tabString+="INF  ";
@@ -108,16 +131,72 @@ public class No {
 		return tabString;
 	}
 
-	public int[][] getTabela() {
+	public RotCelula[][] getTabela() {
 		return tabela;
 	}
 
-	public void setTabela(int[][] tabela) {
+	public void setTabela(RotCelula[][] tabela) {
 		this.tabela = tabela;
 	}
 
 	public DatagramSocket getSocketServidor() {
 		return socketServidor;
+	}
+
+	public boolean vizinhoFoiDesligado(Integer[] info) {
+		boolean retorno = false;
+		try{
+
+			for (int i=2; i<info.length; i+=3){
+				if((info[i] == Integer.MAX_VALUE) && (info[i+1]== 0)){
+					retorno = true;
+				}else{
+					retorno = false;
+				}
+			}
+
+			
+		}
+		catch(NullPointerException e){
+			System.out.println(e);	
+		}
+		return retorno;
+		
+	}
+
+	public void desligaNo(Integer id) {
+		int posicao = vizinhos.indexOf(id);
+		for (int i =0; i<vizinhos.size(); i++){
+			tabela[posicao][i].setPeso(Integer.MAX_VALUE);
+			tabela[posicao][i].setSalto(0);
+		}
+		
+	}
+
+	public void reset(String[] enlace, Integer noDesligado) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public boolean roteadorNaRedeFoiDesligado(Integer[] info) {
+		boolean retorno = false;
+		for (int i=2; i<info.length; i+=3)
+			if((info[i] == Integer.MAX_VALUE) && (info[i+1]==0)){
+				retorno = true;
+				break;
+			}
+		return retorno;
+	}
+
+	public int getNoDesligado(Integer[] info) {
+		int no = 0;
+		for (int i=2; i<info.length; i+=3){
+			if((info[i] == Integer.MAX_VALUE) && (info[i+1]==0)){
+				no = info[i];
+				break;
+			}
+		}
+		return no;
 	}
 
 	

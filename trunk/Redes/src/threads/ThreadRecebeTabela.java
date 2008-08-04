@@ -13,13 +13,13 @@ import logica.BellmanFord;
 import logica.No;
 import logica.RotCelula;
 
-public class RecThread extends Thread {
+public class ThreadRecebeTabela extends Thread {
 	
 	private No no;
 	private DatagramPacket pacote;
 	private Controlador controlador;
 	
-	public RecThread(No no, Controlador controlador){
+	public ThreadRecebeTabela(No no, Controlador controlador){
 		super();
 		setNo(no);
 		setControlador(controlador);
@@ -53,7 +53,7 @@ public class RecThread extends Thread {
 			
 			while (true){
 				getNo().getSocketServidor().receive(receberPacote);
-				RecThread rt = new RecThread(getNo(), controlador);
+				ThreadRecebeTabela rt = new ThreadRecebeTabela(getNo(), controlador);
 				rt.setPacote(receberPacote);
 				//coloca a nova thread para executar
 				rt.run();

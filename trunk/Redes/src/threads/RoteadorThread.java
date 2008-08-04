@@ -30,7 +30,7 @@ public class RoteadorThread extends Thread {
 			System.out.println(e.getMessage());
 		}
 		
-		RecThread rec = new RecThread(controlador.getNoAtual(), controlador);
+		ThreadRecebeTabela rec = new ThreadRecebeTabela(controlador.getNoAtual(), controlador);
 		rec.inicializa();
 		
 	}

@@ -74,8 +74,9 @@ public class ThreadRecebeTabela extends Thread {
 		RotCelula [][]  tabela = getNo().getTabela();
 
 		//transforma em inteiros a string recebida
+		System.out.println("ORIGINAL: "+mensagem);
 		Integer[] info = Util.decodificaDadosPacote(mensagem);
-		System.out.println("O pacote "+show(info)+" foi enviado por "+getPacote().getSocketAddress());
+		
 		int linha = vizinhos.indexOf(info[0]);
 		int posAtual = vizinhos.indexOf(getNo().getId());
 

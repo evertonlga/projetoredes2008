@@ -93,7 +93,7 @@ public class ThreadRecebeTabela extends Thread {
 				System.out.println(e.getMessage());
 			}
 
-			getNo().mostraTabela();
+			//getNo().mostraTabela();
 
 		} // roteador.vizinho NAO FOI Desligado
 		else if(no.roteadorNaRedeFoiDesligado(info)){

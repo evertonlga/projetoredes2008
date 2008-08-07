@@ -30,6 +30,9 @@ public class RoteadorThread extends Thread {
 			System.out.println(e.getMessage());
 		}
 		
+//		RepeteThread repete = new RepeteThread(controlador.getBellmanFord(), 200);
+//		repete.run();
+		
 		ThreadRecebeTabela rec = new ThreadRecebeTabela(controlador.getNoAtual(), controlador);
 		rec.inicializa();
 		

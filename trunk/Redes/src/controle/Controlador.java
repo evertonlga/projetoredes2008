@@ -159,7 +159,7 @@ public class Controlador {
 			
 		}
 		
-		noAtual.mostraTabela();
+		//noAtual.mostraTabela();
 		
 	}
 

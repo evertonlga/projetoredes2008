@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class No {
 
@@ -94,6 +95,7 @@ public class No {
 		if (peso < tabela[ori][des].getPeso()) {
 			tabela[ori][des].setPeso(peso);
 			tabela[ori][des].setSalto(des);
+			mostraTabela();
 		}
 		
 	}
@@ -128,6 +130,8 @@ public class No {
 			}
 			tabString+= "\n";
 		}
+		Calendar c = Calendar.getInstance();
+		tabString += "\n Timestamp:"+ c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
 		System.out.println(tabString);
 	}
 

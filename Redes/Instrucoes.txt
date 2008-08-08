@@ -1,0 +1,5 @@
+Para rodar o sistema via terminal:
+
+1 - No diretorio bin devem estar as classes compiladas
+2 - Os arquivos  "enlace.config" e "roteador.config" devem estar dentro da pasta configuracao
+2 - Digitar no terminal:  'java main.Mainr X', onde X é o número do nó que será inicializado

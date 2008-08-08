@@ -133,7 +133,7 @@ public class No {
 			tabString+= "\n";
 		}
 		Calendar c = Calendar.getInstance();
-		tabString += "\n Timestamp:"+ c.get(Calendar.HOUR_OF_DAY) + ":" + c.get(Calendar.MINUTE) + ":" + c.get(Calendar.SECOND);
+		tabString += "\n Timestamp--->"+ c.get(Calendar.HOUR_OF_DAY)+"h" + ":" + c.get(Calendar.MINUTE)+"min" + ":" + c.get(Calendar.SECOND)+"s";
 		System.out.println(tabString);
 	}
 

@@ -7,6 +7,7 @@ import java.net.UnknownHostException;
 import java.util.ArrayList;
 import java.util.Calendar;
 
+
 public class No {
 
 	private int id;
@@ -94,7 +95,7 @@ public class No {
 		
 		if (peso < tabela[ori][des].getPeso()) {
 			tabela[ori][des].setPeso(peso);
-			tabela[ori][des].setSalto(des);
+			tabela[ori][des].setSalto(destino);
 			mostraTabela();
 		}
 		
@@ -105,14 +106,15 @@ public class No {
 		for (int i = 0; i < vizinhos.size(); i++){
 			for (int j = 0; j < vizinhos.size(); j++){
 				this.tabela[i][j] = new RotCelula();
-				if ((vizinhos.indexOf(this.id)==i)&&(vizinhos.indexOf(this.id) == j))
-					tabela[i][j].setPeso(0);
-				else{
-					this.tabela[i][j].setPeso(Integer.MAX_VALUE);
-				}
-					
+				this.tabela[i][j].setPeso(Integer.MAX_VALUE);
+				
+				if ((vizinhos.indexOf(this.id)==i)&&(vizinhos.indexOf(this.id) == j)){
+					this.tabela[i][j].setPeso(0);
+					this.tabela[i][j].setSalto(this.id);
+				}				
 			}
 		}
+		
 		mostraTabela();
 
 	}

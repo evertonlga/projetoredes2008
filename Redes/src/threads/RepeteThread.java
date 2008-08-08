@@ -15,7 +15,7 @@ public class RepeteThread extends Thread {
 	public void run(){
     	while (true){
 	    	try{
-	    		sleep(tempo*10);
+	    		sleep(tempo*1000);
 	    		try {
 					bf.avisaVizinhos();
 				} catch (Exception e){

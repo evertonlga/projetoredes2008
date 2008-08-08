@@ -11,6 +11,7 @@ public class Util {
 					System.getProperty("file.separator")+ "roteador.config";
 	public static final String CONFIG_ENLACE = "." + System.getProperty("file.separator")+"configuracao"+
 					System.getProperty("file.separator")+ "enlaces.config";
+	public static final int RAIO_DA_REDE = 26;
 	
 	public static String codificaDadosDoPacote(No no) {
 		String dados = "";

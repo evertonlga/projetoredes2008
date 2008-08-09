@@ -19,33 +19,68 @@ public class ThreadRecebeTabela extends Thread {
 	private DatagramPacket pacote;
 	private Controlador controlador;
 	
+	/**
+	 * Construtor da classe
+	 * @param no
+	 * @param controlador
+	 */
 	public ThreadRecebeTabela(No no, Controlador controlador){
 		super();
 		setNo(no);
 		setControlador(controlador);
 	}
 	
+	/**
+	 * retorna o no
+	 * @return o no
+	 */
 	public No getNo() {
 		return no;
 	}
+	
+	/**
+	 * altera o no
+	 * @param no o novo no
+	 */
 	public void setNo(No no) {
 		this.no = no;
 	}
+	
+	/**
+	 * retorna o pacote recebido
+	 * @return o pacote recebido
+	 */
 	public DatagramPacket getPacote() {
 		return pacote;
 	}
+	
+	/**
+	 * altera o pacote que 
+	 * @param pacote
+	 */
 	public void setPacote(DatagramPacket pacote) {
 		this.pacote = pacote;
 	}
 
+	/**
+	 * retorna referencia para o objeto que controla o no
+	 * @return referencia para o objeto que controla o no
+	 */
 	public Controlador getControlador() {
 		return controlador;
 	}
 
+	/**
+	 * altera a referencia para o objeto que controla o no
+	 * @param controlador o novo controlador do no
+	 */
 	public void setControlador(Controlador controlador) {
 		this.controlador = controlador;
 	}
 
+	/**
+	 * inicializa o socket que vai receber os pacotes
+	 */
 	public void inicializa() {
 		byte[] receberDados = new byte[1024];
 		try{
@@ -64,7 +99,9 @@ public class ThreadRecebeTabela extends Thread {
 		
 	}
 
-	
+	/**
+	 * inicia a Thread
+	 */
 	public void run() {
 
 		String mensagem = new String(getPacote().getData());
@@ -137,7 +174,12 @@ public class ThreadRecebeTabela extends Thread {
 		// Atualizando uma linha recebida pelo vizinho
 					
 	}
-
+	
+	/**
+	 * 
+	 * @param info
+	 * @return
+	 */
 	private String show(Integer[] info) {
 		String r = "[";
 		for (Integer i: info){

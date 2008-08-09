@@ -3,7 +3,12 @@ package logica;
 import Util.Util;
 import threads.ThreadEnviaTabela;
 
-
+/**
+ * classe que implementa as funcoes do bellman-ford distribuido nos nos
+ * @author Everton Galdino
+ * @author Vinicius Marques
+ *
+ */
 public class BellmanFord {
 
 	private No no;

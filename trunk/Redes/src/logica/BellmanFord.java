@@ -8,10 +8,17 @@ public class BellmanFord {
 
 	private No no;
 	
+	/**
+	 * Construtor da classe
+	 * @param noAtual
+	 */
 	public BellmanFord(No noAtual) {
 		this.no = noAtual;
 	}
-
+	
+	/**
+	 * envia a tabela de rotas do no atual para os seus nos adjacentes
+	 */
 	public void avisaVizinhos() {
 		ThreadEnviaTabela avisa;
 		for (int vizinho: no.getVizinhos())
@@ -20,7 +27,13 @@ public class BellmanFord {
 				avisa.run();
 			}
 	}
-
+	
+	/**
+	 * faz o calculo do Bellman-Ford distribuido sobre a tabela de roteamento do no
+	 * @param posAtual 
+	 * @param posicao
+	 * @return
+	 */
 	public boolean aplicaBellmanFord(int posAtual, int posicao) {
 		RotCelula [][] tabela = getNo().getTabela();
 		int custo = tabela[posAtual][posicao].getPeso(); 
@@ -45,11 +58,21 @@ public class BellmanFord {
 
 		return hasModificacao;
 	}
-
+	
+	
+	/**
+	 * retorna o no
+	 * @return o no
+	 */
 	public No getNo() {
 		return no;
 	}
-
+	
+	
+	/**
+	 * altera o no
+	 * @param no o novo no
+	 */
 	public void setNo(No no) {
 		this.no = no;
 	}
